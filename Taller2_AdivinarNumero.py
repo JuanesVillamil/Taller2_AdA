@@ -17,7 +17,6 @@ def adivinar_numero(n):
       else:
           print("Respuesta invalida. Por favor, responde 'mayor', 'menor' o 'igual'.")
 
-# Ejemplo de uso
 try:
   numero_pensado = int(input("Piensa en un número natural: "))
   adivinar_numero(numero_pensado)
