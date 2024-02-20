@@ -1,0 +1,84 @@
+\documentclass[twoside,spanish]{elsarticle}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\pagestyle{headings}
+\usepackage{float}
+\usepackage{amssymb}
+\PassOptionsToPackage{normalem}{ulem}
+\usepackage{ulem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\floatstyle{ruled}
+\newfloat{algorithm}{tbp}{loa}
+\providecommand{\algorithmname}{Algoritmo}
+\floatname{algorithm}{\protect\algorithmname}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{babel}
+\journal{Curso de <<Análisis de algoritmos>>, PUJ, Bogotá, Colombia - }
+\addto\shorthandsspanish{\spanishdeactivate{~<>}}
+
+\begin{document}
+\begin{frontmatter}{}
+\title{Juego de Adivinar un Número con Estrategia Dividir-y-Vencer}
+\author[lfv]{Juan Esteban Villamil Ardila}
+\ead{villamila_j@javeriana.edu.co}
+\address[lfv]{Pontificia Universidad Javeriana, Bogotá, Colombia}
+\begin{abstract}
+Este documento presenta un algoritmo basado en la estrategia dividir y vencer para el juego de adivinar un número, donde un humano actúa como el pensador y el algoritmo como el adivinador, este algoritmo reduce el conjunto de posibles números en cada iteración hasta adivinar el número pensado.
+\end{abstract}
+\begin{keyword}
+algoritmo, número, juego, adivinar, dividir y vencer.
+\end{keyword}
+\end{frontmatter}{}
+
+\section{Análisis del problema}
+El juego de adivinar un número implica que el adivinador debe reducir eficientemente el conjunto de posibles números a través de preguntas al pensador, la estrategia dividir y vencer es una buena elección  para este problema ya que permite descartar rápidamente la mitad de los posibles números en cada iteración.
+
+\section{Diseño del problema}
+El pensador elige un número natural y el adivinador debe adivinarlo proporcionando conjuntos de números, el pensador responde si el número pensado es mayor menor o igual a cada número en el conjunto proporcionado.
+
+\subsection{Valores de entrada}
+\begin{itemize}
+\item $n$: Número pensado por el humano.
+\item $C$: Conjunto de números proporcionado por el adivinador.
+\end{itemize}
+
+\subsection{Valores de salida}
+\begin{itemize}
+\item Respuestas del pensador indicando si el número pensado es mayor, menor o igual a cada número en el conjunto.
+\end{itemize}
+
+\section{Algoritmo de solución}
+El algoritmo se basa en la estrategia dividir y vencer. En cada iteración el adivinador selecciona el número medio del rango actual de posibles números, luego presenta este número al pensador quien responde con la relación del número pensado respecto al número propuesto, el adivinador ajusta el rango de posibles números en consecuencia y repite el proceso hasta adivinar el número.
+
+\begin{algorithm}[H]
+\begin{algorithmic}[1]
+\Require{$n$: Número pensado por el humano}
+\Procedure{AdivinarNumero}{$n$}
+    \State $inicio \gets 1$
+    \State $fin \gets \infty$
+    \While{Verdadero}
+        \State $numero\_propuesto \gets \lfloor \frac{inicio + fin}{2} \rfloor$
+        \State Enviar $numero\_propuesto$ al pensador
+        \State Recibir respuesta del pensador
+        \If{Respuesta es "mayor"}
+            \State $fin \gets numero\_propuesto - 1$
+        \ElsIf{Respuesta es "menor"}
+            \State $inicio \gets numero\_propuesto + 1$
+        \Else
+            \State \Return $numero\_propuesto$ \Comment{Número adivinado}
+        \EndIf
+    \EndWhile
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Notas de implementación}
+El algoritmo utiliza búsqueda binaria para reducir eficientemente el rango de posibles números en cada iteración, aprovechando la estrategia dividir y vencer.
+
+\subsection{Análisis de complejidad}
+La complejidad de este algoritmo es $O(\log_2 N)$, donde $N$ es la diferencia entre el mayor y el menor número posible en el rango inicial de posibles números.
+
+\end{document}
